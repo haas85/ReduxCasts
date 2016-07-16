@@ -28,22 +28,27 @@ class App extends Component {
         videos: videos,
         selectedVideo: videos[0]
       });
-      this.videoComments();
+      this.videoComments(videos[0]);
     });
   }
 
-  videoComments() {
-    if (!this.state.selectedVideo) {
+  videoComments(video) {
+    if (!video && !this.state.selectedVideo) {
       return
     }
-    YTComments({key: API_KEY, video: this.state.selectedVideo.id.videoId}, (comments) => {
+
+    let _video = video || this.state.selectedVideo;
+
+    YTComments({key: API_KEY, video: _video.id.videoId}, (comments) => {
       this.setState({ comments });
+    }, ()=>{
+      this.setState({comments: []}) ;
     });
   }
 
   selectedVideo(selectedVideo) {
       this.setState({selectedVideo});
-      this.videoComments();
+      this.videoComments(selectedVideo);
   }
 
   render() {

@@ -2,7 +2,7 @@ var axios = require('axios');
 
 var ROOT_URL = 'https://www.googleapis.com/youtube/v3/commentThreads';
 
-module.exports = function (options, callback) {
+module.exports = function (options, callback, errorCallback) {
   if (!options.key) {
     throw new Error('Youtube key expected key, received undefined');
   }
@@ -23,5 +23,6 @@ module.exports = function (options, callback) {
     })
     .catch(function(error) {
       console.error(error);
+      if (errorCallback) { errorCallback(error); }
     });
 };
