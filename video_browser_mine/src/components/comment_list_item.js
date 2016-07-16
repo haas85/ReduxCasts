@@ -6,7 +6,7 @@ const CommentListItem = (props) => {
     return (
         <li className="list-group-item">
             <div className="comment-list author">{comment.authorDisplayName}</div>
-            <p className="comment-list text">{comment.textDisplay}</p>
+            <p className="comment-list text" dangerouslySetInnerHTML={{__html: comment.textDisplay}}></p>
         </li>
     );
 };
