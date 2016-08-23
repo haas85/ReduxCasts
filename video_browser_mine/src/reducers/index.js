@@ -1,13 +1,10 @@
-import {FETCH_VIDEOS, SELECT_VIDEO} from '../actions/videoManager';
-import {videoLoaded, videoSelected} from './videoReducer';
+import { combineReducers } from 'redux';
+import VideoListReducer from './video_list_reducer';
+import SelectedVideoReeducer from './selected_video_reducer';
 
-export default function (state = {}, action) => {
-    switch (action.type) {
-        case FETCH_VIDEOS:
-            return videoLoaded(state, action);
-        case SELECT_VIDEO:
-            return videoSelected(state, action);
-        default:
-            return state;
-    }
-}
+const rootReducer = combineReducers({
+    videoList: VideoListReducer,
+    videoSelected: SelectedVideoReeducer
+});
+
+export default rootReducer;

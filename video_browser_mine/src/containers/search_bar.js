@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { fetchVideos } from '../actions/videoManager';
 
 class SearchBar extends Component {
   constructor(props) {
@@ -19,8 +22,12 @@ class SearchBar extends Component {
 
   onInputChange(term) {
     this.setState({term});
-    this.props.onSearchTermChange(term);
+    this.props.fetchVideos(term);
   }
 }
 
-export default SearchBar;
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ fetchVideos: fetchVideos }, dispatch);
+}
+
+export default connect(null, mapDispatchToProps)(SearchBar);

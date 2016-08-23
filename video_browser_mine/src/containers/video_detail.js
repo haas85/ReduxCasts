@@ -1,26 +1,41 @@
-import React from 'react';
-import CommentList from './comment_list';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import CommentList from '../components/comment_list';
 
-const VideoDetail = ({video, comments}) => {
-  if (!video) {
-    return <div>Loading...</div>;
+class VideoDetail extends Component {
+
+  constructor(props){
+    super(props);
+    this.comments= props.comments;
   }
 
-  const videoId = video.id.videoId;
-  const url = `https://www.youtube.com/embed/${videoId}`;
+  render() {
+    if (!this.props.videoSelected.video) {
+      return <div>Loading...</div>;
+    }
 
-  return (
-    <div className="video-detail col-md-8">
-      <div className="embed-responsive embed-responsive-16by9">
-        <iframe className="embed-responsive-item" src={url}></iframe>
+    const videoId = this.props.videoSelected.video.id.videoId;
+    const url = `https://www.youtube.com/embed/${videoId}`;
+
+    return (
+      <div className="video-detail col-md-8">
+        <div className="embed-responsive embed-responsive-16by9">
+          <iframe className="embed-responsive-item" src={url}></iframe>
+        </div>
+        <div className="details">
+          <div>{this.props.videoSelected.video.snippet.title}</div>
+          <div>{this.props.videoSelected.video.snippet.description}</div>
+        </div>
+        <CommentList comments={this.comments}></CommentList>
       </div>
-      <div className="details">
-        <div>{video.snippet.title}</div>
-        <div>{video.snippet.description}</div>
-      </div>
-      <CommentList comments={comments}></CommentList>
-    </div>
-  );
+    );
+  }
 };
 
-export default VideoDetail;
+const mapStateToProps = (state) => {
+  return {
+    videoSelected: state.videoSelected
+  }
+}
+
+export default connect(mapStateToProps, null)(VideoDetail);
