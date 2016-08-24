@@ -1,9 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import VideoListItem from '../components/video_list_item';
+import VideoListItem from '../containers/video_list_item';
 
 const VideoList = (props) => {
-  console.log(props);
   const videoItems = props.videoList.map((video) => {
     return (
       <VideoListItem

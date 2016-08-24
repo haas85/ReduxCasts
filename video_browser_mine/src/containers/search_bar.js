@@ -29,6 +29,6 @@ class SearchBar extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ fetchVideos: fetchVideos }, dispatch);
-}
+};
 
 export default connect(null, mapDispatchToProps)(SearchBar);
