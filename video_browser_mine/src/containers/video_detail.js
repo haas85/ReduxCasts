@@ -6,6 +6,7 @@ class VideoDetail extends Component {
 
   constructor(props){
     super(props);
+      window.cosa = this;
     this.comments= props.comments;
   }
 
