@@ -12,7 +12,7 @@ class VideoDetail extends Component {
 
   render() {
     if (!this.props.videoSelected.video) {
-      return <div>Loading...</div>;
+      return <div className="video-detail col-md-8">Loading...</div>;
     }
 
     const videoId = this.props.videoSelected.video.id.videoId;
