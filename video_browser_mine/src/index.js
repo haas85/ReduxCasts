@@ -2,15 +2,25 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import YTSearch from 'youtube-api-search';
 import YTComments from './lib/YTComments';
 import SearchBar from './containers/search_bar';
 import VideoList from './containers/video_list';
 import VideoDetail from './containers/video_detail';
-import configureStore from './store/configureStore';
 const API_KEY = 'AIzaSyAuQCVeNfKhtRk9KlChQPT1nO27DPO_5Ss';
 
-const store = configureStore();
+import { createStore, applyMiddleware } from 'redux';
+import ReduxPromise from 'redux-promise';
+import reducers from './reducers';
+import configureStore from './store/configureStore';
+
+const USE_REDUX_PROMISE = true;
+let store;
+
+if(USE_REDUX_PROMISE) {
+  store = applyMiddleware(ReduxPromise)(createStore)(reducers);
+} else {
+  store = configureStore();
+}
 
 class App extends Component {
   constructor(props) {
@@ -22,18 +32,6 @@ class App extends Component {
       selectedVideo: null,
       term: 'surfboards'
     };
-
-    this.videoSearch(this.state.term);
-  }
-
-  videoSearch(term) {
-    YTSearch({key: API_KEY, term: term}, (videos) => {
-      this.setState({
-        videos: videos,
-        selectedVideo: videos[0]
-      });
-      this.videoComments(videos[0]);
-    });
   }
 
   videoComments(video) {
@@ -56,16 +54,14 @@ class App extends Component {
   }
 
   render() {
-    const videoSearch = _.debounce((term) => { this.videoSearch(term) }, 300);
+    // const videoSearch = _.debounce((term) => { this.videoSearch(term) }, 300);
 
     return (
         <Provider store={store}>
             <div>
-                <SearchBar term={this.state.term} onSearchTermChange={videoSearch} />
-                <VideoDetail video={this.state.selectedVideo} comments={this.state.comments}/>
-                <VideoList
-                  onVideoSelect={(selectedVideo) => {this.selectedVideo(selectedVideo)}}
-                  videos={this.state.videos} />
+                <SearchBar/>
+                <VideoDetail comments={this.state.comments}/>
+                <VideoList />
             </div>
         </Provider>
     );
