@@ -4,13 +4,15 @@ import CommentListItem from './comment_list_item';
 export default class CommentList extends Component {
     constructor(props) {
         super(props);
-        this.comments = this.props.comments || [];
     }
 
     render() {
-        let comments = this.comments.map((comment) => {
-            return <CommentListItem key={comment.id} comment={comment}></CommentListItem>
-        });
+        let comments = [];
+        if (this.props.comments) {
+            comments = this.props.comments.map((comment) => {
+                return <CommentListItem key={comment.id} comment={comment}></CommentListItem>
+            });
+        }
 
         return (
             <div className="comments col-md-12">
