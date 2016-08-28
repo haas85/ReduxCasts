@@ -6,8 +6,6 @@ class VideoDetail extends Component {
 
   constructor(props){
     super(props);
-      window.cosa = this;
-    this.comments= props.comments;
   }
 
   render() {
@@ -27,7 +25,8 @@ class VideoDetail extends Component {
           <div>{this.props.videoSelected.video.snippet.title}</div>
           <div>{this.props.videoSelected.video.snippet.description}</div>
         </div>
-        <CommentList comments={this.comments}></CommentList>
+          { /*Using comments in this way to maintain some component in the code*/ }
+        <CommentList comments={this.props.comments}></CommentList>
       </div>
     );
   }
@@ -35,7 +34,8 @@ class VideoDetail extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    videoSelected: state.videoSelected
+      videoSelected: state.videoSelected,
+      comments: state.commentList
   }
 }
 

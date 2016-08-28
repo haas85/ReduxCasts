@@ -2,25 +2,28 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import YTComments from './lib/YTComments';
 import SearchBar from './containers/search_bar';
 import VideoList from './containers/video_list';
 import VideoDetail from './containers/video_detail';
-const API_KEY = 'AIzaSyAuQCVeNfKhtRk9KlChQPT1nO27DPO_5Ss';
 
 import { createStore, applyMiddleware } from 'redux';
 import ReduxPromise from 'redux-promise';
 import reducers from './reducers';
 import configureStore from './store/configureStore';
+import ActorHandler from './actors/index';
 
 const USE_REDUX_PROMISE = true;
-let store;
+let _store;
 
 if(USE_REDUX_PROMISE) {
-  store = applyMiddleware(ReduxPromise)(createStore)(reducers);
+  _store = applyMiddleware(ReduxPromise)(createStore)(reducers);
 } else {
-  store = configureStore();
+  _store = configureStore();
 }
+
+ActorHandler(_store);
+
+export const store = _store;
 
 class App extends Component {
   constructor(props) {
@@ -40,12 +43,6 @@ class App extends Component {
     }
 
     let _video = video || this.state.selectedVideo;
-
-    YTComments({key: API_KEY, video: _video.id.videoId}, (comments) => {
-      this.setState({ comments });
-    }, ()=>{
-      this.setState({comments: []}) ;
-    });
   }
 
   selectedVideo(selectedVideo) {
@@ -57,7 +54,7 @@ class App extends Component {
     // const videoSearch = _.debounce((term) => { this.videoSearch(term) }, 300);
 
     return (
-        <Provider store={store}>
+        <Provider store={_store}>
             <div>
                 <SearchBar/>
                 <VideoDetail comments={this.state.comments}/>
