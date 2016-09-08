@@ -14,6 +14,7 @@ export default class App extends Component {
     render() {
         return (
             <div>
+                <Link to="greet">Link on app go to greet</Link>
                 {this.props.children}
                 <SearchBar/>
                 <VideoDetail/>

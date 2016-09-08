@@ -5,7 +5,7 @@ import App from './components/app';
 
 class GreetLink extends Component {
     render(){
-        return (<Link to="greet">Go to greet</Link>)
+        return (<div><br/><Link to="greet">Link in index route got to greet</Link></div>)
     }
 }
 
@@ -28,7 +28,7 @@ class Greet2 extends Component {
         return (
             <div>
                 Inside greet
-                {this.props.children}
+                {this.props.children} <br/>
                 <Link to="greet/child">OpenChild</Link>
             </div>);
     }
@@ -39,7 +39,7 @@ class Greet3 extends Component {
         super(props);
     }
     render(){
-        return (<div>Last Child</div>)
+        return (<div>Last Child <br/> <Link to="/">Link to main</Link></div>)
     }
 }
 
