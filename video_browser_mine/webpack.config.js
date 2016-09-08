@@ -1,5 +1,10 @@
+var path = require('path');
+var webpack = require('webpack');
+
 module.exports = {
   entry: [
+    'webpack-dev-server/client?http://localhost:8080', // WebpackDevServer host and port
+    'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
     './src/index.js'
   ],
   output: {
@@ -11,7 +16,8 @@ module.exports = {
   module: {
     loaders: [{
       exclude: /node_modules/,
-      loader: 'babel'
+      loaders: ['react-hot', 'babel'],
+      include: path.join(__dirname, 'src')
     }]
   },
   resolve: {
@@ -20,5 +26,8 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
     contentBase: './'
-  }
+  },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin()
+  ]
 };
