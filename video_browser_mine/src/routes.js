@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import { Route, IndexRoute, Link } from 'react-router';
 
 import App from './components/app';
@@ -21,6 +21,11 @@ class Greet1 extends Component {
 }
 
 class Greet2 extends Component {
+
+    static contextTypes = {
+        router: PropTypes.object
+    };
+
     constructor(props){
         super(props);
     }
@@ -30,6 +35,7 @@ class Greet2 extends Component {
                 Inside greet
                 {this.props.children} <br/>
                 <Link to="greet/child">OpenChild</Link>
+                <button onClick={() => this.context.router.push('/')}>Navigate with js</button>
             </div>);
     }
 }
