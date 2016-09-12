@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchVideos } from '../actions/videoManager';
+import { fetchVideos } from '../../actions/videoManager';
 
 import SearchBarTemp from './search_bar_template'
 

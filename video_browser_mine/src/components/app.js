@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import SearchBar from '../containers/search_bar';
+import SearchBar from '../containers/search_bar/search_bar';
 import VideoList from '../containers/video_list';
 import VideoDetail from '../containers/video_detail';
 import { Link } from 'react-router';
