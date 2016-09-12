@@ -2,8 +2,9 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Autosuggest from 'react-autosuggest';
 import { fetchVideos } from '../actions/videoManager';
+
+import SearchBarTemp from './search_bar_template'
 
 class SearchBar extends Component {
   constructor(props) {
@@ -57,17 +58,7 @@ class SearchBar extends Component {
       onChange: this.onInputChange
     };
 
-    return (
-        <div className="search-bar">
-          <Autosuggest
-              suggestions={this.state.suggestions}
-              onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-              onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-              getSuggestionValue={this.getSuggestionValue}
-              renderSuggestion={this.renderSuggestion}
-              inputProps={inputProps} />
-        </div>
-    );
+    return SearchBarTemp.bind(this)(inputProps);
   }
 
   doSearch(term) {
