@@ -15,7 +15,7 @@ const USE_REDUX_PROMISE = true;
 let _store;
 
 if(USE_REDUX_PROMISE) {
-  _store = applyMiddleware(ReduxPromise)(createStore)(reducers);
+  _store = applyMiddleware(ReduxPromise)(createStore)(reducers, window.devToolsExtension && window.devToolsExtension());
 } else {
   _store = configureStore();
 }
